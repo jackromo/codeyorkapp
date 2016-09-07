@@ -10,4 +10,22 @@ Does the following:
     * Email addresses of students
     * Shows which assignments have been completed / not completed
     * Deadlines of assignments
-    * Question page, enter question which is emailed to admin
+
+Has the following pages:
+
+* Homepage
+    * Summary of site
+    * Links to all other pages
+* Lessons and Links
+    * List of every lesson
+        * Each lesson's page = text w/ coding examples
+    * List of external links
+* Login
+    * First/last name, email, password
+    * Should send verification email to address
+* 'My account' page
+    * Profile picture, name, email address, password
+    * Assignments completed / due
+* Assignment programming page (rip off codecademy as much as possible lmao)
+    * Assignment in text on left, Ace editor in middle/right (most of screen)
+    * Test/Submit buttons at bottom, results screen at top-right
