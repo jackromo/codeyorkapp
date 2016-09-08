@@ -1,1 +1,4 @@
 .idea/*
+*.db
+db_repository/*
+# make db_repository available at deployment, migrate scripts == useful!
