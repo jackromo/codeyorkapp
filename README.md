@@ -20,7 +20,8 @@ Has the following pages:
     * List of every lesson
         * Each lesson's page = text w/ coding examples
     * List of external links
-* Login
+* Login / sign up
+    * Two forms, one for login and one to sign up
     * First/last name, email, password
     * Should send verification email to address
 * 'My account' page
