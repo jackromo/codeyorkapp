@@ -3,7 +3,8 @@ import os
 
 # WTForm Config
 
-# TODO
+WTF_CSRF_ENABLED = True
+SECRET_KEY = 'i-totally-thought-of-a-good-key-m8-lmao-get-rekked-hax0rs'
 
 # SQLite Config
 
