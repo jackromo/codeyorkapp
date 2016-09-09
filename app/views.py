@@ -88,3 +88,15 @@ def resources():
 @app.route('/editor')
 def editor():
     return render_template("partials/editor.html")
+
+
+@app.errorhandler(404)
+def not_found_editor(error):
+    db.session.rollback()
+    return render_template("partials/404.html"), 404
+
+
+@app.errorhandler(500)
+def not_found_editor(error):
+    db.session.rollback()
+    return render_template("partials/500.html"), 500
