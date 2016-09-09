@@ -6,6 +6,7 @@
 </head>
 <body>
     {% block header %}{% include "header.html" %}{% endblock %}
+    <!-- Print all flashed messages in a list after header -->
     {% with messages = get_flashed_messages() %}
         {% if messages %}
             <ul>
