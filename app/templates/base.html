@@ -6,6 +6,15 @@
 </head>
 <body>
     {% block header %}{% include "header.html" %}{% endblock %}
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            <ul>
+                {% for message in messages %}
+                    <li>{{ message }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    {% endwith %}
     {% block contents %}{% endblock %}
     {% block footer %}{% include "footer.html" %}{% endblock %}
 </body>
