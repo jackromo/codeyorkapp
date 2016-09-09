@@ -1,4 +1,35 @@
 {% extends "base.html" %}
+
 {% block contents %}
-    <p>This is the login page.</p>
+    <h1>Log In</h1>
+    <form action="" method="post" name="login">
+        {{ login_form.hidden_tag() }}
+        <p>
+            Username:<br>
+            {{ login_form.username(size=80) }}<br>
+        </p>
+        <p>
+            Password:<br>
+            {{ login_form.password(size=80) }}<br>
+        </p>
+        <p>{{ login_form.remember_me }}</p>
+    </form>
+    <br>
+    <h1>Sign Up</h1>
+    <form action="" method="post" name="signup">
+        {{ signup_form.hidden_tag() }}
+        <p>
+            Username:<br>
+            {{ signup_form.username(size=80) }}<br>
+        </p>
+        <p>
+            Email:<br>
+            {{ signup_form.email(size=80) }}<br>
+        </p>
+        <p>
+            Password:<br>
+            {{ signup_form.password(size=80) }}<br>
+        </p>
+        <p>{{ signup_form.remember_me }}</p>
+    </form>
 {% endblock %}
