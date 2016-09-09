@@ -1,1 +1,7 @@
-<h1>Header here</h1>
+<div>
+    Parseltongue: <a href="{{ url_for('index') }}">Home</a>
+    {% if g.user.is_authenticated %}
+        | <a href="{{ url_for('profile') }}">Your Profile</a>
+        | <a href="{{ url_for('logout') }}">Logout</a>
+    {% endif %}
+</div>
