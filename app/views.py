@@ -2,7 +2,7 @@ from flask import render_template, flash, redirect, session, url_for, request, g
 from flask_login import login_user, logout_user, current_user, login_required
 from app import app, login_manager, db
 from forms import LoginForm, SignupForm
-from models import User
+from models import User, UserAssignments
 
 
 @app.before_request
@@ -75,8 +75,12 @@ def logout():
 @app.route('/profile')
 @login_required
 def profile():
+    solved_asgns = g.user.get_solved_assignments()
+    unsolved_visible_asgns = g.user.get_unsolved_visible_assignments()
     return render_template("partials/profile.html",
-                           user=g.user)
+                           user=g.user,
+                           solved_asgns=solved_asgns,
+                           unsolved_visible_asgns=unsolved_visible_asgns)
 
 
 @app.route('/resources')

@@ -8,4 +8,26 @@
             <td><h1>User: {{ user.username }}</h1></td>
         </tr>
     </table>
+    <!-- Solved assignments -->
+    <table>
+        {% for solved_asgn in solved_asgns %}
+            <tr>
+                <td><h2>{{ solved_asgn.title }}</h2></td>
+                <td><p>Due by {{ solved_asgn.date_due }}</p></td>
+                <!-- TODO: link to editor instance for assignment -->
+                <td><a href="{{ url_for('editor') }}">Solved</a></td>
+            </tr>
+        {% endfor %}
+    </table>
+    <!-- Unsolved visible assignments -->
+    <table>
+        {% for unsolved_asgn in unsolved_visible_asgns %}
+            <tr>
+                <td><h2>{{ unsolved_asgn.title }}</h2></td>
+                <td><p>Due by {{ unsolved_asgn.date_due }}</p></td>
+                <!-- TODO: link to editor instance for assignment -->
+                <td><a href="{{ url_for('editor') }}">Unsolved</a></td>
+            </tr>
+        {% endfor %}
+    </table>
 {% endblock %}

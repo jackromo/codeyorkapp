@@ -76,6 +76,7 @@ class Assignment(db.Model):
         title (str): Title of assignment.
         desc (str): Description of assignment.
         visible (bool): Whether assignment is visible to users or not.
+        date_due (Date): Date assignment is due.
         tester_dir (str): Directory of tester script for assignment.
 
     Relationships:
@@ -87,6 +88,7 @@ class Assignment(db.Model):
     title = db.Column(db.String(64), index=True, unique=True)
     desc = db.Column(db.String(300), index=True)
     visible = db.Column(db.Boolean)
+    date_due = db.Column(db.Date)
     tester_dir = db.Column(db.String(120), index=True)
     users_solved = db.relationship('UserAssignments', back_populates='assignment')
 
