@@ -109,7 +109,6 @@ class UserAssignments(db.Model):
     Relationships:
         user (User, many-to-many): User who solved an assignment.
         assignment (Assignment, many-to-many): Assignment user has solved.
-
     """
 
     __tablename__ = 'user_asgns'
