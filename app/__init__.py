@@ -29,7 +29,7 @@ if not app.debug:
     app.logger.addHandler(mail_handler)
     # file logging init
     # 1 megabyte log files, keep last 10 log files as backup
-    file_handler = RotatingFileHandler('tmp/codeyorkapp.log', 'a', 1 * 1024 * 1024, 10)
+    file_handler = RotatingFileHandler('log/codeyorkapp.log', 'a', 1 * 1024 * 1024, 10)
     file_handler.setFormatter(
         logging.Formatter('%(asctime)s %(levelname)s: %(message)s [in %(pathname)s:%(lineno)d]')
     )
