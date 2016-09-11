@@ -4,6 +4,7 @@ from flask_login import LoginManager
 from config import basedir, ADMINS, MAIL_SERVER, MAIL_PORT, MAIL_USERNAME, MAIL_PASSWORD
 import logging
 from logging.handlers import SMTPHandler, RotatingFileHandler
+from flask_mail import Mail
 
 
 app = Flask(__name__)
@@ -14,6 +15,8 @@ db = SQLAlchemy(app)
 login_manager = LoginManager()
 login_manager.init_app(app)
 login_manager.login_view = 'login'
+
+mail = Mail(app)
 
 if not app.debug:
     # mail server init

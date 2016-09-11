@@ -16,7 +16,7 @@ SQLALCHEMY_TRACK_MODIFICATIONS = True  # set to True for debugging
 
 # Mail Server Config
 
-MAIL_SERVER = 'codeyorkapp.net'
+MAIL_SERVER = 'parseltongue.net'
 MAIL_PORT = 25
 MAIL_USERNAME = None
 MAIL_PASSWORD = None
