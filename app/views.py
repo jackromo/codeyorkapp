@@ -1,8 +1,9 @@
-from flask import render_template, flash, redirect, session, url_for, request, g
+from flask import render_template, flash, redirect, session, url_for, request, g, jsonify
 from flask_login import login_user, logout_user, current_user, login_required
 from app import app, login_manager, db
 from forms import LoginForm, SignupForm
-from models import User, UserAssignments
+from models import User, UserAssignments, Assignment
+from testcode import test_code
 
 
 @app.before_request
@@ -88,10 +89,27 @@ def resources():
     return render_template("partials/resources.html")
 
 
-# TODO
-@app.route('/editor')
-def editor():
-    return render_template("partials/editor.html")
+@app.route('/editor/<int:asgn_id>')
+def editor(asgn_id):
+    assignment = Assignment.query.filter(Assignment.id == asgn_id).first()
+    return render_template("partials/editor.html",
+                           assignment=assignment)
+
+
+@app.route('/submitcode/<int:asgn_id>/<int:user_id>', methods=['POST'])
+def submit(asgn_id, user_id):
+    user = User.query.filter(User.id == user_id).first()
+    assignment = Assignment.query.filter(Assignment.id == asgn_id).first()
+    code_str = request.json['code']
+    if test_code(assignment, code_str):
+        result_path = 'results/' + str(user_id) + '_' + str(asgn_id) + '.py'
+        with open(result_path, 'w') as f:
+            f.write(code_str)
+        user.solve_assignment(assignment, result_path)
+        db.session.commit()
+        return jsonify({'solved': True})
+    else:
+        return jsonify({'solved': False})
 
 
 @app.errorhandler(404)
