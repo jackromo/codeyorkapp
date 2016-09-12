@@ -76,7 +76,7 @@ class Assignment(db.Model):
         title (str): Title of assignment.
         desc (str): Description of assignment.
         visible (bool): Whether assignment is visible to users or not.
-        date_due (Date): Date assignment is due.
+        date_due (Date): Date assignment is due. Due at the midnight at the start of that day, UTC time.
         tester_dir (str): Directory of tester script for assignment.
 
     Relationships:

@@ -118,7 +118,8 @@ def send_scheduled_emails():
     Does not send 'users_new_asgn' or 'admin_late_soln'; these are sent when they happen.
     """
     for assignment in Assignment.query.all():
-        tdelta = datetime.datetime.now().date() - assignment.date_due
+        datetime_due = datetime.datetime.fromordinal(assignment.date_due.toordinal())
+        tdelta = datetime.datetime.utcnow() - datetime_due
         if 0 < tdelta.total_seconds() - (24 * 3600) <= 600:     # <= 10 minutes until 24 hours to asgn's due date
             send_email_user_asgn_soon(assignment)
         elif -600 < tdelta.total_seconds() <= 0:    # assignment due date passed < 10 mins ago
@@ -134,5 +135,4 @@ def start_scheduled_emails():
     Start sending scheduled emails as they are needed.
     """
     # no initialization needed at the moment, keep this function in case
-    timer = Timer(600, send_scheduled_emails)
-    timer.start()
+    send_scheduled_emails()
