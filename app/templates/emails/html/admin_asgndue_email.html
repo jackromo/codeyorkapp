@@ -1,0 +1,16 @@
+<p>Hey,</p>
+<p>The due date for '{{ assignment.title }}' has passed.</p>
+<p>The following people completed it successfully:</p>
+<ul>
+    {% for user in users_solved %}
+        <li>{{ user.username }}, {{ user.email }}</li>
+    {% endfor %}
+</ul>
+<p>The following people did not complete it:</p>
+<ul>
+    {% for user in users_failed %}
+        <li>{{ user.username }}, {{ user.email }}</li>
+    {% endfor %}
+</ul>
+<p>Best,</p>
+<p>Your automated bullshit</p>
