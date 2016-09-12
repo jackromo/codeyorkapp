@@ -1,0 +1,6 @@
+Hey,
+
+The new assignment "{{ assignment.title }}" has just been issued, due for {{ assignment.due_date }} at UTC 0:00.
+
+Best,
+Jack

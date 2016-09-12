@@ -1,0 +1,8 @@
+Hey,
+
+The assignment "{{ assignment.title }}" is due pretty soon. Today, in fact.
+
+Do solve it if you can. If you can't figure it out or you have a good reason to not do it, then don't worry - you can solve the assignment after the deadline, or you can bring a printed / saved attempt to class for me to see.
+
+Best,
+Jack

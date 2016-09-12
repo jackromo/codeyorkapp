@@ -1,0 +1,18 @@
+Hey,
+
+The due date for '{{ assignment.title }}' has passed.
+
+The following people completed it successfully:
+
+{% for user in users_solved %}
+{{ user.username }}, {{ user.email }}
+{% endfor %}
+
+The following people did not complete it:
+
+{% for user in users_failed %}
+{{ user.username }}, {{ user.email }}
+{% endfor %}
+
+Best,
+Your automated bullshit

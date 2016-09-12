@@ -1,0 +1,7 @@
+Hey,
+
+{{ user.username }} has just solved "{{ assignment.title }}".
+However, this assignment was due at {{ assignment.date_due }}.
+
+Best,
+Your automated bullshit
