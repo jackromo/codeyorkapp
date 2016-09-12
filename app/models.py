@@ -46,11 +46,18 @@ class User(db.Model):
 
     def solve_assignment(self, assignment, solution_dir):
         """
-        Add solution from user for assignment.
+        Add solution from user for assignment, or amend old solution.
         Solution should be in solution_dir path already.
+        Session must be committed after usage.
         """
-        asgn_sol = UserAssignments(user_id=self.id, asgn_id=assignment.id, result_dir=solution_dir)
-        self.asgn_solutions.append(asgn_sol)
+        if self.has_solved(assignment):
+            UserAssignments.query.filter(
+                UserAssignments.user_id == self.id,
+                UserAssignments.asgn_id == assignment.id
+            ).first().result_dir = solution_dir
+        else:
+            asgn_sol = UserAssignments(user_id=self.id, asgn_id=assignment.id, result_dir=solution_dir)
+            self.asgn_solutions.append(asgn_sol)
         return self
 
     def get_solved_assignments(self):
