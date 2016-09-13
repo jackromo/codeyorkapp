@@ -3,5 +3,7 @@
     {% if g.user.is_authenticated %}
         | <a href="{{ url_for('profile') }}">Your Profile</a>
         | <a href="{{ url_for('logout') }}">Logout</a>
+    {% else %}
+        | <a href="{{ url_for('login') }}">Login or Signup</a>
     {% endif %}
 </div>

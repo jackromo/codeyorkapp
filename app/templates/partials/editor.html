@@ -20,7 +20,8 @@
 {% endblock %}
 
 {% block contents %}
-    <p>This is the editor page.</p>
+    <h1>Assignment: {{ assignment.title }}</h1>
+    <p>Description: {{ assignment.desc }}</p>
     <table>
         <tr valign="top">
             {% if g.user.has_solved(assignment) %}
