@@ -46,3 +46,50 @@ function submit_code(asgn_id, user_id) {
         }
     );
 }
+
+
+// Skulpt code
+
+
+/**
+ * skulpt_out: Send result of skulpt interpreter to output pre.
+ *
+ * @param text - text output of interpreter.
+ */
+function skulpt_out(text) {
+    $("#editor_out").append(text);
+}
+
+
+/**
+ * skulpt_read: Input callable used by Skulpt to load modules.
+ *
+ * @param x - Requested module.
+ * @returns {*} - Module requested.
+ */
+function skulpt_read(x) {
+    if (Sk.builtinFiles === undefined || Sk.builtinFiles["files"][x] === undefined)
+        throw "File not found: '" + x + "'";
+    return Sk.builtinFiles["files"][x];
+}
+
+
+/**
+ * skulpt_run: Run user-entered Python code. Called on 'Run' button press.
+ */
+function skulpt_run() {
+   var prog = ace.edit("code_editor").getValue();
+   var mypre = $("#editor_out");
+   mypre.html('');
+   Sk.pre = "editor_out";
+   Sk.configure({output:skulpt_out, read:skulpt_read});
+   (Sk.TurtleGraphics || (Sk.TurtleGraphics = {})).target = 'editor_canvas';
+   var myPromise = Sk.misceval.asyncToPromise(function() {
+       return Sk.importMainWithBody("<stdin>", false, prog, true);
+   });
+   myPromise.then(function(mod) {
+       console.log('success');
+   }, function(err) {
+       console.log(err.toString());
+   });
+}

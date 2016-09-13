@@ -3,18 +3,25 @@
 {% block scripts %}
     <script src="../../static/js/editor.js" type="text/javascript"></script>
     <script src="../../static/js/src-min/ace.js" type="text/javascript"></script>
+    <script src="http://www.skulpt.org/static/skulpt.min.js" type="text/javascript"></script>
+    <script src="http://www.skulpt.org/static/skulpt-stdlib.js" type="text/javascript"></script>
 {% endblock %}
 
 {% block stylesheets %}
     <style type="text/css" media="screen">
         #code_editor {
             width: 500px;
-            height: 300px;
+            height: 500px;
         }
         #editor_out {
             width: 200px;
             height: 200px;
             background-color: darkgray;
+        }
+        #editor_canvas {
+            width: 200px;
+            height: 200px;
+            background-color: lightgray;
         }
     </style>
 {% endblock %}
@@ -29,7 +36,10 @@
             {% else %}
                 <td><pre id="code_editor">print "All of your code should go here!"</pre></td>
             {% endif %}
-            <td><pre id="editor_out"></pre></td>
+            <td>
+                <pre id="editor_out"></pre>
+                <pre id="editor_canvas"></pre>
+            </td>
         </tr>
     </table>
     <script>
@@ -38,6 +48,7 @@
         editor.setTheme("ace/theme/monokai");
         editor.getSession().setMode("ace/mode/python");
     </script>
+    <input type="button" onclick="skulpt_run()" value="Run" />
     <input type="button"
            onclick="submit_code({{ g.user.id }}, {{ assignment.id }})"
            value="Submit" />
