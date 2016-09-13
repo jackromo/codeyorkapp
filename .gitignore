@@ -3,4 +3,6 @@
 *.db-journal
 db_repository/*
 log/*
+results/*
+!results/.keep
 # make db_repository available at deployment, migrate scripts == useful!

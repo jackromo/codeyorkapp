@@ -15,7 +15,7 @@
                 <td><h2>{{ solved_asgn.title }}</h2></td>
                 <td><p>Due by {{ solved_asgn.date_due }} at 0:00 UTC</p></td>
                 <!-- TODO: link to editor instance for assignment -->
-                <td><a href="{{ url_for('editor') }}">Solved</a></td>
+                <td><a href="{{ url_for('editor', asgn_id=solved_asgn.id) }}">Solved</a></td>
             </tr>
         {% endfor %}
     </table>
@@ -26,7 +26,7 @@
                 <td><h2>{{ unsolved_asgn.title }}</h2></td>
                 <td><p>Due by {{ unsolved_asgn.date_due }} at 0:00 UTC</p></td>
                 <!-- TODO: link to editor instance for assignment -->
-                <td><a href="{{ url_for('editor') }}">Unsolved</a></td>
+                <td><a href="{{ url_for('editor', asgn_id=unsolved_asgn.id) }}">Unsolved</a></td>
             </tr>
         {% endfor %}
     </table>

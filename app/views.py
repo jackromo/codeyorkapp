@@ -100,10 +100,10 @@ def editor(asgn_id):
 def submit(asgn_id, user_id):
     user = User.query.filter(User.id == user_id).first()
     assignment = Assignment.query.filter(Assignment.id == asgn_id).first()
-    code_str = request.json['code']
+    code_str = request.get_json(silent=True)['contents']
     if test_code(assignment, code_str):
-        result_path = 'results/' + str(user_id) + '_' + str(asgn_id) + '.py'
-        with open(result_path, 'w') as f:
+        result_path = './results/' + str(user_id) + '_' + str(asgn_id) + '.py'
+        with open(result_path, 'w+') as f:
             f.write(code_str)
         user.solve_assignment(assignment, result_path)
         db.session.commit()

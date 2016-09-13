@@ -7,6 +7,23 @@
  */
 
 
+function success_submit_code(data) {
+    if(data['solved'])
+        $("#success").show();
+    else
+        $("#fail").show();
+    $("#loading").hide();
+    $("#submit").show();
+}
+
+
+function error_submit_code() {
+    alert("Error: Could not contact server. Check your internet connection and try again.");
+    $("#loading").hide();
+    $("#submit").show();
+}
+
+
 /**
  * submit_code: Submit a code solution and handle the response.
  *
@@ -16,18 +33,15 @@
 function submit_code(asgn_id, user_id) {
     $("#submit").hide();
     $("#loading").show();
-    $.post('/submitcode/' + asgn_id + '/' + user_id, {
-        contents: $("#code_editor").text()
-    }).done(function(result) {
-        if(result['solved'])
-            $("#success").show();
-        else
-            $("#fail").show();
-        $("#loading").hide();
-        $("#submit").show();
-    }).fail(function() {
-        alert("Error: Could not contact server. Check your internet connection and try again.");
-        $("#loading").hide();
-        $("#submit").show();
-    });
+    $.ajax(
+        '/submitcode/' + asgn_id + '/' + user_id,
+        {
+            method: 'POST',
+            data: JSON.stringify({contents: $("#code_editor").val()}),
+            contentType: 'application/json',
+            dataType: 'json',
+            success: success_submit_code,
+            error: error_submit_code
+        }
+    );
 }
