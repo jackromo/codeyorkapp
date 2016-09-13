@@ -92,8 +92,13 @@ def resources():
 @app.route('/editor/<int:asgn_id>')
 def editor(asgn_id):
     assignment = Assignment.query.filter(Assignment.id == asgn_id).first()
+    user_soln = ''
+    if g.user.has_solved(assignment):
+        with open('./results/' + str(g.user.id) + '_' + str(asgn_id) + '.py', 'r') as f:
+            user_soln = f.read()
     return render_template("partials/editor.html",
-                           assignment=assignment)
+                           assignment=assignment,
+                           user_soln=user_soln)
 
 
 @app.route('/submitcode/<int:asgn_id>/<int:user_id>', methods=['POST'])

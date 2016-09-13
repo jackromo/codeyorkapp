@@ -23,8 +23,12 @@
     <p>This is the editor page.</p>
     <table>
         <tr valign="top">
-            <td><div id="code_editor">print "All of your code should go here!"</div></td>
-            <td><div id="editor_out"></div></td>
+            {% if g.user.has_solved(assignment) %}
+                <td><pre id="code_editor">{{ user_soln }}</pre></td>
+            {% else %}
+                <td><pre id="code_editor">print "All of your code should go here!"</pre></td>
+            {% endif %}
+            <td><pre id="editor_out"></pre></td>
         </tr>
     </table>
     <script>
