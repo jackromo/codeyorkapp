@@ -2,7 +2,9 @@
 *.db
 *.db-journal
 db_repository/*
+# make db_repository available at deployment, migrate scripts == useful!
 log/*
 results/*
 !results/.keep
-# make db_repository available at deployment, migrate scripts == useful!
+app/static/js/src-min/*
+# make ace available at deployment

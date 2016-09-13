@@ -2,6 +2,8 @@
 
 Website to help teach kids programming in Python.
 
+This app users Flask, jQuery, Ace, Bootstrap and Skulpt.
+
 Does the following:
 
 * Lesson materials and external links students can go to

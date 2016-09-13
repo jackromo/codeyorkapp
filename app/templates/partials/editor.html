@@ -1,12 +1,38 @@
 {% extends "base.html" %}
 
 {% block scripts %}
-    <script src="../../static/js/editor.js"></script>
+    <script src="../../static/js/editor.js" type="text/javascript"></script>
+    <script src="../../static/js/src-min/ace.js" type="text/javascript"></script>
+{% endblock %}
+
+{% block stylesheets %}
+    <style type="text/css" media="screen">
+        #code_editor {
+            width: 500px;
+            height: 300px;
+        }
+        #editor_out {
+            width: 200px;
+            height: 200px;
+            background-color: darkgray;
+        }
+    </style>
 {% endblock %}
 
 {% block contents %}
     <p>This is the editor page.</p>
-    <textarea id="code_editor" rows="2" cols="1"></textarea>
+    <table>
+        <tr valign="top">
+            <td><div id="code_editor">print "All of your code should go here!"</div></td>
+            <td><div id="editor_out"></div></td>
+        </tr>
+    </table>
+    <script>
+        // enable Ace editor
+        var editor = ace.edit("code_editor");
+        editor.setTheme("ace/theme/monokai");
+        editor.getSession().setMode("ace/mode/python");
+    </script>
     <input type="button"
            onclick="submit_code({{ g.user.id }}, {{ assignment.id }})"
            value="Submit" />
