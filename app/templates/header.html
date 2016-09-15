@@ -1,5 +1,6 @@
 <div>
     Parseltongue: <a href="{{ url_for('index') }}">Home</a>
+    | <a href="{{ url_for('resources') }}">Resources</a>
     {% if g.user.is_authenticated %}
         | <a href="{{ url_for('profile') }}">Your Profile</a>
         | <a href="{{ url_for('logout') }}">Logout</a>
