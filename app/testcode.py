@@ -68,5 +68,7 @@ def check_test_results(assignment, test_results):
         bool: Whether tests were successful or not.
     """
     assignment_tests = AssignmentTest.query.filter(AssignmentTest.asgn_id == assignment.id)
+    if len(assignment_tests.all()) == 0:
+        return False
     expected_out = '\n'.join([asgn_test.test_out for asgn_test in assignment_tests])
     return expected_out == test_results
