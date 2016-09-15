@@ -67,19 +67,3 @@ def check_test_results(assignment, test_results):
     assignment_tests = AssignmentTest.query.filter(AssignmentTest.asgn_id == assignment.id)
     expected_out = '\n'.join([asgn_test.test_out for asgn_test in assignment_tests])
     return expected_out == test_results
-
-
-# TODO: deprecate this
-def test_code(assignment, code_str):
-    """
-    Test whether a program string solves a given assignment.
-
-    Args:
-        assignment (Assignment): Assignment to be solved.
-        code_str (str): Code posed as a solution to assignment.
-
-    Returns:
-        bool: Whether solution is sufficient or not.
-    """
-    # TODO
-    return True

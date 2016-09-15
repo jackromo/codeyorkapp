@@ -3,7 +3,7 @@ from flask_login import login_user, logout_user, current_user, login_required
 from app import app, login_manager, db
 from forms import LoginForm, SignupForm
 from models import User, UserAssignments, Assignment
-from testcode import get_test_str, check_test_results, test_code
+from testcode import get_test_str, check_test_results
 
 
 @app.before_request
@@ -129,27 +129,6 @@ def testdone(asgn_id, user_id):
         user.solve_assignment(assignment, result_path)
         db.session.commit()
     return jsonify({'solved': has_solved})
-
-
-# TODO: deprecate this
-@app.route('/submitcode/<int:asgn_id>/<int:user_id>', methods=['POST'])
-def submit(asgn_id, user_id):
-    """
-    Request to store program once tests on it have been verified.
-    Assumes verification has occurred.
-    """
-    user = User.query.filter(User.id == user_id).first()
-    assignment = Assignment.query.filter(Assignment.id == asgn_id).first()
-    code_str = request.get_json(silent=True)['contents']
-    if test_code(assignment, code_str):
-        result_path = './results/' + str(user_id) + '_' + str(asgn_id) + '.py'
-        with open(result_path, 'w+') as f:
-            f.write(code_str)
-        user.solve_assignment(assignment, result_path)
-        db.session.commit()
-        return jsonify({'solved': True})
-    else:
-        return jsonify({'solved': False})
 
 
 @app.errorhandler(404)
