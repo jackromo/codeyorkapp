@@ -3,7 +3,7 @@ from flask_login import login_user, logout_user, current_user, login_required
 from app import app, login_manager, db
 from forms import LoginForm, SignupForm
 from models import User, UserAssignments, Assignment
-from testcode import test_code
+from testcode import get_test_str, check_test_results, test_code
 
 
 @app.before_request
@@ -101,8 +101,43 @@ def editor(asgn_id):
                            user_soln=user_soln)
 
 
+@app.route('/gettest/<int:asgn_id>', methods=['POST'])
+def gettest(asgn_id):
+    """
+    Request for assignment tests when 'Submit' is hit in editor.
+    """
+    assignment = Assignment.query.filter(Assignment.id == asgn_id).first()
+    test_prog_str = get_test_str(assignment)
+    return jsonify({'test_template': test_prog_str})
+
+
+@app.route('/testdone/<int:asgn_id>/<int:user_id>', methods=['POST'])
+def testdone(asgn_id, user_id):
+    """
+    Request for test result verification once tests have been run; if successful, store user code.
+    """
+    user = User.query.filter(User.id == user_id).first()
+    assignment = Assignment.query.filter(Assignment.id == asgn_id).first()
+    req_json = request.get_json(silent=True)
+    test_results = req_json['test_result']
+    code_str = req_json['program']
+    has_solved = check_test_results(assignment, test_results)
+    if has_solved:
+        result_path = './results/' + str(user_id) + '_' + str(asgn_id) + '.py'
+        with open(result_path, 'w+') as f:
+            f.write(code_str)
+        user.solve_assignment(assignment, result_path)
+        db.session.commit()
+    return jsonify({'solved': has_solved})
+
+
+# TODO: deprecate this
 @app.route('/submitcode/<int:asgn_id>/<int:user_id>', methods=['POST'])
 def submit(asgn_id, user_id):
+    """
+    Request to store program once tests on it have been verified.
+    Assumes verification has occurred.
+    """
     user = User.query.filter(User.id == user_id).first()
     assignment = Assignment.query.filter(Assignment.id == asgn_id).first()
     code_str = request.get_json(silent=True)['contents']

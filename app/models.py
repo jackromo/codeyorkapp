@@ -1,5 +1,6 @@
 from app import db
 from hashlib import md5
+import os
 
 
 class User(db.Model):
@@ -88,6 +89,7 @@ class Assignment(db.Model):
 
     Relationships:
         users_solved (UserAssignments, many-to-many): Users who have solved this assignment.
+        asgn_tests (AssignmentTest, one-to-many): Tests for this assignment.
     """
 
     __tablename__ = 'assignments'
@@ -96,8 +98,8 @@ class Assignment(db.Model):
     desc = db.Column(db.String(300), index=True)
     visible = db.Column(db.Boolean)
     date_due = db.Column(db.Date)
-    tester_dir = db.Column(db.String(120), index=True)
     users_solved = db.relationship('UserAssignments', back_populates='assignment')
+    asgn_tests = db.relationship('AssignmentTest', back_populates='assignment')
 
     def __repr__(self):
         return '<Assignment \"%s\">' % self.title
@@ -127,3 +129,32 @@ class UserAssignments(db.Model):
 
     def __repr__(self):
         return '<User %s with assignment \"%s\">' % (self.user_id, self.asgn_id)
+
+
+class AssignmentTest(db.Model):
+    """
+    A single test for an assignment.
+    Consists of set of inputs, newline delimited, and the expected printed output.
+
+    Columns:
+        id (int): ID of test.
+        asgn_id (int): ID of assignment being tested.
+        test_inp (str): String of inputs to pass to program, line by line for each input()/raw_input() call.
+        test_out (str): Expected output string.
+
+    Relationships:
+        assignment (Assignment, one-to-many): Assignment test is for.
+    """
+
+    __tablename__ = 'asgn_test'
+    id = db.Column(db.Integer, primary_key=True)
+    asgn_id = db.Column(db.Integer, db.ForeignKey('assignments.id'))
+    test_inp = db.Column(db.String)
+    test_out = db.Column(db.String)
+    assignment = db.relationship('Assignment', back_populates='asgn_tests')
+
+    def __repr__(self):
+        return '<AssignmentTest %s for assignment %s>' % (self.id, self.assignment.title)
+
+    def test_successful(self, result):
+        return self.test_out == result

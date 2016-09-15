@@ -11,12 +11,13 @@
     <style type="text/css" media="screen">
         #code_editor {
             width: 500px;
-            height: 500px;
+            height: 414px;
         }
         #editor_out {
             width: 200px;
             height: 200px;
             background-color: darkgray;
+            white-space: pre-wrap;
         }
         #editor_canvas {
             width: 200px;
@@ -48,10 +49,12 @@
         editor.setTheme("ace/theme/monokai");
         editor.getSession().setMode("ace/mode/python");
     </script>
-    <input type="button" onclick="skulpt_run()" value="Run" />
+    <input type="button" onclick="skulpt_run(null, 'editor_out', 'editor_canvas')" value="Run" />
     <input type="button"
-           onclick="submit_code({{ g.user.id }}, {{ assignment.id }})"
+           onclick="get_test({{ assignment.id }}, {{ g.user.id }})"
            value="Submit" />
+    <!-- test_out: Used to collect printed test output. TODO: eliminate this. -->
+    <pre id="test_out" style="display: none"></pre>
     <div>
         <span id="loading" style="display: none">Loading...</span>
         <span id="success" style="display: none">Success! Go on to the next assignment.</span>
