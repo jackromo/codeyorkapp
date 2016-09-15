@@ -142,8 +142,8 @@ function test_prog(test_template) {
     var orig_prog = ace.edit("code_editor").getValue();
     var out_pre = $("#test_out");
     // replace inbuilt functions with user defined versions
-    var prog = orig_prog.replace(/input\(/g, '_input(_test_inputs, ')
-                        .replace(/raw_input\(/g, '_raw_input(_test_inputs, ');
+    var prog = orig_prog.replace(/input\(/g, '_input(')
+                        .replace(/raw_input\(/g, '_raw_input(');
     var indented_prog = ('\t' + prog).replace(/\n/g, '\n\t');
     var test_prog = test_template.replace(/_proghere_/, indented_prog);
     skulpt_run(test_prog, out_pre.attr('id'), null);

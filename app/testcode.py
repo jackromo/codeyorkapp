@@ -13,19 +13,22 @@ from models import Assignment, AssignmentTest
 
 # Passed to client with test parameters.
 test_template = """
-def _raw_input(dummy_inputs, prompt):
-    for _, i in enumerate(dummy_inputs.strip().split('\\n')):
-        yield i
 
-def _input(dummy_inputs, prompt):
-    for _, i in enumerate(dummy_inputs.strip().split('\\n')):
-        yield i
+def _inp_gen_func(dummy_inputs):
+\tfor _, i in enumerate(dummy_inputs.strip().split('\\n')):
+\t\tyield i
 
 def _user_prog(_test_inputs):
+\t_inp_gen = _inp_gen_func(_test_inputs)
+\tdef _raw_input(prompt):
+\t\treturn _inp_gen.next()
+
+\tdef _input(prompt):
+\t\treturn _inp_gen.next()
 _proghere_
 
 for inp in %s:
-    _user_prog(inp)
+\t_user_prog(inp)
 """
 
 
