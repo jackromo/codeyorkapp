@@ -22,19 +22,21 @@
 </head>
 <body>
     {% import "macros.html" as macros %}
-    {% block header %}{% include "header.html" %}{% endblock %}
-    <div class="container">
-        <!-- Print all flashed messages in a list after header -->
-        {% with messages = get_flashed_messages() %}
-            {% if messages %}
-                <ul>
-                    {% for message in messages %}
-                        <li>{{ message }}</li>
-                    {% endfor %}
-                </ul>
-            {% endif %}
-        {% endwith %}
-        {% block contents %}{% endblock %}
+    <div id="wrap">
+        {% block header %}{% include "header.html" %}{% endblock %}
+        <div class="container">
+            <!-- Print all flashed messages in a list after header -->
+            {% with messages = get_flashed_messages() %}
+                {% if messages %}
+                    <ul>
+                        {% for message in messages %}
+                            <li>{{ message }}</li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+            {% endwith %}
+            {% block contents %}{% endblock %}
+        </div>
     </div>
     {% block footer %}{% include "footer.html" %}{% endblock %}
 </body>
