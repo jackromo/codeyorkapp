@@ -12,21 +12,19 @@
 {% endblock %}
 
 {% block contents %}
-    <h1>Assignment: {{ assignment.title }}</h1>
-    <p>Description: {{ assignment.desc }}</p>
-    <table>
-        <tr valign="top">
-            {% if g.user.has_solved(assignment) %}
-                <td><pre id="code_editor">{{ user_soln }}</pre></td>
-            {% else %}
-                <td><pre id="code_editor">print "All of your code should go here!"</pre></td>
-            {% endif %}
-            <td>
-                <pre id="editor_out"></pre>
-                <pre id="editor_canvas"></pre>
-            </td>
-        </tr>
-    </table>
+    <h1>Assignment: <strong>{{ assignment.title }}</strong></h1>
+    <p>{{ assignment.desc }}</p>
+    <div class="row">
+        <div class="col-md-9">
+            <pre id="code_editor">{% if g.user.has_solved(assignment) %}{{ user_soln }}{% else %}print "All of your code should go here!"{% endif %}</pre>
+        </div>
+        <div class="col-md-3">
+            <div class="row">
+                <div class="col-md-12"><pre id="editor_out"></pre></div>
+                <div class="col-md-12"><pre id="editor_canvas"></pre></div>
+            </div>
+        </div>
+    </div>
     <script>
         // enable Ace editor
         var editor = ace.edit("code_editor");
@@ -43,7 +41,7 @@
            value="Submit" />
     <!-- test_out: Used to collect printed test output. TODO: eliminate this. -->
     <pre id="test_out" style="display: none"></pre>
-    <div>
+    <div id="submit_result_container">
         <div id="loading" style="display: none">
             Loading...
         </div>
