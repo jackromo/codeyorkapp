@@ -43,15 +43,9 @@ class LoginForm(Form):
     Form to log into site with existing account.
     """
 
-    username = BootstrapStringField('username',
-                                    validators=[DataRequired()],
-                                    label_text='Username',
-                                    placeholder='Username')
-    password = BootstrapPasswordField('password',
-                                      validators=[DataRequired()],
-                                      label_text='Password',
-                                      placeholder='Password here')
-    remember_me = BooleanField('remember_me', default=False)
+    username = StringField('Username', validators=[DataRequired()])
+    password = PasswordField('Password', validators=[DataRequired()])
+    remember_me = BooleanField('Remember Me', default=False)
 
 
 class SignupForm(Form):
@@ -59,16 +53,7 @@ class SignupForm(Form):
     Form to make account for site.
     """
 
-    email = BootstrapStringField('email',
-                                 validators=[DataRequired()],
-                                 label_text='Email Address',
-                                 placeholder='Email here')
-    username = BootstrapStringField('username',
-                                    validators=[DataRequired()],
-                                    label_text='Username',
-                                    placeholder='Username')
-    password = BootstrapPasswordField('password',
-                                      validators=[DataRequired()],
-                                      label_text='Password',
-                                      placeholder='Password here')
-    remember_me = BooleanField('remember_me', default=False)
+    email = StringField('Email', validators=[DataRequired()],)
+    username = StringField('Username', validators=[DataRequired()])
+    password = PasswordField('Password', validators=[DataRequired()])
+    remember_me = BooleanField('Remember Me', default=False)

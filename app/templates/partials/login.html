@@ -1,22 +1,38 @@
 {% extends "base.html" %}
 
+
+{% macro render_bs_text_field(field) %}
+
+<div class="form-group {% if field.errors %} error {% endif %}">
+    <label class="col-lg-2 control-label">{{ field.label }}</label>
+    <div class="col-lg-8">
+        {{ field(class='form-control')|safe }}
+        {% if field.errors %}
+            {% for error in field.errors %}
+                <span class="help-inline">[{{ error }}]</span><br>
+            {% endfor %}
+        {% endif %}
+    </div>
+</div>
+{% endmacro %}
+
 {% block contents %}
     <h1>Log In</h1>
     <form action="{{ url_for('login') }}" method="post" name="login">
         {{ login_form.hidden_tag() }}
-        <p>{{ login_form.username(size=60) }}<br></p>
-        <p>{{ login_form.password(size=60) }}<br></p>
-        <p>Remember me {{ login_form.remember_me }}</p>
-        <p><input type="submit" value="Log In"></p>
+        {{ macros.render_bs_text_field(login_form.username) }}
+        {{ macros.render_bs_text_field(login_form.password) }}
+        Remember me {{ login_form.remember_me }}<br>
+        <input type="submit" value="Log In">
     </form>
     <br>
     <h1>Sign Up</h1>
     <form action="{{ url_for('signup') }}" method="post" name="signup">
         {{ signup_form.hidden_tag() }}
-        <p>{{ signup_form.username }}<br></p>
-        <p>{{ signup_form.email }}<br></p>
-        <p>{{ signup_form.password }}<br></p>
-        <p>Remember me {{ signup_form.remember_me }}</p>
-        <p><input type="submit" value="Sign Up"></p>
+        {{ macros.render_bs_text_field(signup_form.username) }}
+        {{ macros.render_bs_text_field(signup_form.email) }}
+        {{ macros.render_bs_text_field(signup_form.password) }}
+        Remember me {{ signup_form.remember_me }}<br>
+        <input type="submit" value="Sign Up">
     </form>
 {% endblock %}

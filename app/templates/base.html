@@ -21,6 +21,7 @@
     {% block stylesheets %}{% endblock %}
 </head>
 <body>
+    {% import "macros.html" as macros %}
     {% block header %}{% include "header.html" %}{% endblock %}
     <div class="container">
         <!-- Print all flashed messages in a list after header -->
