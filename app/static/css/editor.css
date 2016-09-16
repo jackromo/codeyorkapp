@@ -1,0 +1,17 @@
+#code_editor {
+    width: 500px;
+    height: 414px;
+}
+
+#editor_out {
+    width: 200px;
+    height: 200px;
+    background-color: darkgray;
+    white-space: pre-wrap;
+}
+
+#editor_canvas {
+    width: 200px;
+    height: 200px;
+    background-color: lightgray;
+}
