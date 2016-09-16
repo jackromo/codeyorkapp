@@ -1,36 +1,36 @@
 {% extends "base.html" %}
 
 {% block contents %}
-    <p>This is your profile page.</p>
-    <table>
-        <tr valign="top">
-            <td><img src="{{ user.avatar(128) }}"></td>
-            <td>
-                <table>
-                    <tr><td><h1>{{ user.username }}</h1></td></tr>
-                    <tr><td><h3>{{ user.email }}</h3></td></tr>
-                </table>
-            </td>
-        </tr>
-    </table>
+    <div class="row">
+        <div class="col-md-3">
+            <img src="{{ user.avatar(128) }}" class="img-circle">
+        </div>
+        <div class="col-md-9">
+            <table>
+                <tr><td><h1>{{ user.username }}</h1></td></tr>
+                <tr><td><h3>{{ user.email }}</h3></td></tr>
+            </table>
+        </div>
+    </div>
+    <hr>
     <!-- Solved assignments -->
-    <table>
+    <h3>Solved Assignments</h3>
+    <div class="list-group">
         {% for solved_asgn in solved_asgns %}
-            <tr>
-                <td><h2>{{ solved_asgn.title }}</h2></td>
-                <td><p>Due by {{ solved_asgn.date_due }} at 0:00 UTC</p></td>
-                <td><a href="{{ url_for('editor', asgn_id=solved_asgn.id) }}">Solved</a></td>
-            </tr>
+            <a href="{{ url_for('editor', asgn_id=solved_asgn.id) }}" class="list-group-item list-group-item-action">
+                <h2 class="list-group-item-heading">{{ solved_asgn.title }}</h2>
+                <p class="list-group-item-text">Due by {{ solved_asgn.date_due }} at 0:00 UTC</p>
+            </a>
         {% endfor %}
-    </table>
+    </div>
     <!-- Unsolved visible assignments -->
-    <table>
+    <h3>Unsolved Assignments</h3>
+    <div class="list-group">
         {% for unsolved_asgn in unsolved_visible_asgns %}
-            <tr>
-                <td><h2>{{ unsolved_asgn.title }}</h2></td>
-                <td><p>Due by {{ unsolved_asgn.date_due }} at 0:00 UTC</p></td>
-                <td><a href="{{ url_for('editor', asgn_id=unsolved_asgn.id) }}">Unsolved</a></td>
-            </tr>
+            <a href="{{ url_for('editor', asgn_id=unsolved_asgn.id) }}" class="list-group-item list-group-item-action">
+                <h2 class="list-group-item-heading">{{ unsolved_asgn.title }}</h2>
+                <p class="list-group-item-text">Due by {{ unsolved_asgn.date_due }} at 0:00 UTC</p>
+            </a>
         {% endfor %}
-    </table>
+    </div>
 {% endblock %}
