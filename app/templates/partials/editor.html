@@ -8,23 +8,7 @@
 {% endblock %}
 
 {% block stylesheets %}
-    <style type="text/css" media="screen">
-        #code_editor {
-            width: 500px;
-            height: 414px;
-        }
-        #editor_out {
-            width: 200px;
-            height: 200px;
-            background-color: darkgray;
-            white-space: pre-wrap;
-        }
-        #editor_canvas {
-            width: 200px;
-            height: 200px;
-            background-color: lightgray;
-        }
-    </style>
+    <link rel="stylesheet" type="text/css" href="../../static/css/editor.css">
 {% endblock %}
 
 {% block contents %}
@@ -49,8 +33,12 @@
         editor.setTheme("ace/theme/monokai");
         editor.getSession().setMode("ace/mode/python");
     </script>
-    <input type="button" onclick="skulpt_run(null, 'editor_out', 'editor_canvas')" value="Run" />
     <input type="button"
+           class="btn btn-secondary btn-lg"
+           onclick="skulpt_run(null, 'editor_out', 'editor_canvas')"
+           value="Run" />
+    <input type="button"
+           class="btn btn-primary btn-lg"
            onclick="get_test({{ assignment.id }}, {{ g.user.id }})"
            value="Submit" />
     <!-- test_out: Used to collect printed test output. TODO: eliminate this. -->
