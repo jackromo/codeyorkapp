@@ -1,4 +1,57 @@
 {% extends "base.html" %}
+
+{% block scripts %}
+    <script src="../../static/js/editor.js" type="text/javascript"></script>
+    <script src="../../static/js/src-min/ace.js" type="text/javascript"></script>
+{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" type="text/css" href="../../static/css/home.css">
+{% endblock %}
+
 {% block contents %}
-    <p>This is the homepage.</p>
+    <div class="jumbotron jumbotron-flexible">
+        <h1 class="display-3">Learn Python in Python.</h1>
+        <p class="lead">Parseltongue is a site made by Python teachers, for Python students, with Python frameworks.</p>
+        <hr class="m-y-2">
+        <p class="lead">This website will teach you everything you need to know about Python, from "Hello World" to object oriented programming.</p>
+        <p class="lead">
+            <a class="btn btn-primary btn-lg" href="{{ url_for('login') }}">Login or Signup Here</a>
+        </p>
+    </div>
+    <h2><span class="glyphicon glyphicon-console"></span> Learn to code.</h2><br>
+    <p>This site was built to teach a class of secondary school UK students programming <strong>from the bottom up.</strong></p>
+    <p>To meet this, the site has in-depth teaching materials, links to external resources, and in-built coding facilities.</p>
+    <p>Don't know what Python is?</p>
+    <pre id="home_code_example">print "Time to find out."
+
+print "Python is a simple but powerful programming language."
+print "It's a tool you can use to make websites, write video games, and find Waldo at the press of a button."
+
+name = input("But enough talk. Type your name: ")
+
+print "Well, " + name + ", you'll be learning to code in just a few moments."
+
+import time
+for x in reversed(range(1, 5+1)):
+    print "Commence teaching in " + str(x) + " seconds."
+    time.sleep(1)
+
+print "Time to begin!"</pre>
+    <script>
+        // enable Ace editor
+        var editor = ace.edit("home_code_example");
+        editor.setTheme("ace/theme/monokai");
+        editor.getSession().setMode("ace/mode/python");
+    </script>
+    <br><h2><span class="glyphicon glyphicon-bed"></span> Get comfortable.</h2><br>
+    <p>This site has everything you'll need built in. Know what that means?</p>
+    <p><strong>No downloads. No installation. Just log in and go.</strong></p>
+    <p>The site sports built-in assignments and an in-browser Python code editor, so no IDLE required. It's totally self-contained, so your user experience can be as seamless as possible.</p>
+    <br><h2><span class="glyphicon glyphicon-wrench"></span> Solve problems.</h2><br>
+    <p>Python might be simple, but it ain't no cakewalk.</p>
+    <p>As a student, you'll need to put in a bit of elbow grease yourself, to make sure you're learning as much as you can, as thoroughly as you can.</p>
+    <p><strong>This website provides all the practice you'll need. Built in.</strong></p>
+    <p>Assignments with automated email notifications will let you release your inner hacker, as you plow through complex programming problems with ease. No strings attached.</p><br>
+    <h4>Learn code. Learn Python. Learn Parseltongue.</h4>
 {% endblock %}
