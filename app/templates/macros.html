@@ -1,9 +1,9 @@
 {% macro render_bs_text_field(field) %}
 
 <div class="form-group {% if field.errors %} error {% endif %}">
-    <label class="col-lg-2 control-label">{{ field.label }}</label>
-    <div class="col-lg-8">
-        {{ field(class='form-control')|safe }}
+    <label class="col-md-2 control-label">{{ field.label }}</label>
+    {{ field(class='form-control')|safe }}
+    <div class="col-md-8">
         {% if field.errors %}
             {% for error in field.errors %}
                 <span class="help-inline">[{{ error }}]</span><br>

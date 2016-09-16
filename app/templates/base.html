@@ -24,7 +24,7 @@
     {% import "macros.html" as macros %}
     <div id="wrap">
         {% block header %}{% include "header.html" %}{% endblock %}
-        <div class="container">
+        <div class="container" id="body_container">
             <!-- Print all flashed messages in a list after header -->
             {% with messages = get_flashed_messages() %}
                 {% if messages %}

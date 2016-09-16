@@ -17,22 +17,22 @@
 {% endmacro %}
 
 {% block contents %}
-    <h1>Log In</h1>
+    <h1>Log In</h1><br>
     <form action="{{ url_for('login') }}" method="post" name="login">
         {{ login_form.hidden_tag() }}
-        {{ macros.render_bs_text_field(login_form.username) }}
-        {{ macros.render_bs_text_field(login_form.password) }}
-        Remember me {{ login_form.remember_me }}<br>
-        <input type="submit" value="Log In">
+        <div class="row"><div class="col-md-8">{{ macros.render_bs_text_field(login_form.username) }}</div></div>
+        <div class="row"><div class="col-md-8">{{ macros.render_bs_text_field(login_form.password) }}</div></div><br>
+        <div class="row"><div class="col-md-8">Remember me {{ login_form.remember_me }}</div></div><br>
+        <div class="row"><div class="col-md-8"><input type="submit" value="Log In"></div></div>
     </form>
     <br>
-    <h1>Sign Up</h1>
+    <h1>Sign Up</h1><br>
     <form action="{{ url_for('signup') }}" method="post" name="signup">
         {{ signup_form.hidden_tag() }}
-        {{ macros.render_bs_text_field(signup_form.username) }}
-        {{ macros.render_bs_text_field(signup_form.email) }}
-        {{ macros.render_bs_text_field(signup_form.password) }}
-        Remember me {{ signup_form.remember_me }}<br>
-        <input type="submit" value="Sign Up">
+        <div class="row"><div class="col-md-8">{{ macros.render_bs_text_field(signup_form.username) }}</div></div>
+        <div class="row"><div class="col-md-8">{{ macros.render_bs_text_field(signup_form.email) }}</div></div>
+        <div class="row"><div class="col-md-8">{{ macros.render_bs_text_field(signup_form.password) }}</div></div><br>
+        <div class="row"><div class="col-md-8">Remember me {{ signup_form.remember_me }}</div></div><br>
+        <div class="row"><div class="col-md-8"><input type="submit" value="Sign Up"></div></div>
     </form>
 {% endblock %}

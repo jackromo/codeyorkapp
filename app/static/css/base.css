@@ -7,13 +7,19 @@ body {
 /* Wrapper for page content to push down footer */
 #wrap {
     min-height: 100%;
-    left: 50%;
-    max-width: 900px;
     height: auto;
     /* Negative indent footer by its height */
     margin: 0 auto -80px;
     /* Pad bottom by footer height */
     padding: 0 0 80px;
+    background-color: #fafafa;
+}
+
+#body_container {
+    max-width: 900px;
+    left: 50%;
+    padding: 20px;
+    background-color: white;
 }
 
 #footer {
