@@ -9,9 +9,9 @@ body {
     min-height: 100%;
     height: auto;
     /* Negative indent footer by its height */
-    margin: 0 auto -225px;
+    margin: 0 auto -215px;
     /* Pad bottom by footer height */
-    padding: 0 0 225px;
+    padding: 0 0 215px;
     background-color: #fafafa;
 }
 
@@ -19,26 +19,28 @@ body {
     max-width: 900px;
     left: 50%;
     padding: 20px;
+    margin-bottom: 20px;
     background-color: white;
 }
 
 #footer {
     width: 100%;
-    height: 225px;
-    padding: 10px;
+    height: 215px;
+    padding-left: 10px;
+    padding-right: 10px;
     padding-top: 25px;
     bottom: 0;
     left: 0;
-    margin-top: 20px;
+    /*margin-top: 20px;*/
     background-color: #222222;
     color: #dddddd;
     font-size: small;
 }
 
-#footer a:link {
+#footer a:link,
+#footer a:visited,
+#footer hr,
+#footer p {
     color: #aaaaaa;
-}
-
-#footer a:visited {
-    color: #aaaaaa;
+    border-color: #aaaaaa;
 }
