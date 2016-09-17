@@ -2,7 +2,7 @@ from flask import render_template, flash, redirect, session, url_for, request, g
 from flask_login import login_user, logout_user, current_user, login_required
 from app import app, login_manager, db
 from forms import LoginForm, SignupForm
-from models import User, UserAssignments, Assignment
+from models import User, UserAssignments, Assignment, AssignmentTest
 from testcode import get_test_str, check_test_results
 from config import SECRET_KEY
 import datetime
@@ -140,13 +140,13 @@ def addassignment():
     """
     req_json = request.get_json(silent=True)
     if not req_json:
-        return "Assignment sending failed."
+        return "Assignment addition failed."
     if req_json['key'] != SECRET_KEY:
-        return "Assignment sending failed; key incorrect."
+        return "Assignment addition failed; key incorrect."
     assignment = Assignment(
         title=req_json['title'],
         desc=req_json['desc'],
-        visible=bool(req_json['visible']),
+        visible=req_json['visible'],
         date_due=datetime.date.fromordinal(req_json['date_due'])
     )
     db.session.add(assignment)
@@ -161,9 +161,9 @@ def delassignment():
     """
     req_json = request.get_json(silent=True)
     if not req_json:
-        return "Assignment sending failed."
+        return "Assignment deletion failed."
     if req_json['key'] != SECRET_KEY:
-        return "Assignment sending failed; key incorrect."
+        return "Assignment deletion failed; key incorrect."
     asgn = Assignment.query.filter(Assignment.id == req_json['asgn_id']).first()
     db.session.delete(asgn)
     db.session.commit()
@@ -177,9 +177,9 @@ def getassignments():
     """
     req_json = request.get_json(silent=True)
     if not req_json:
-        return "Assignment sending failed."
+        return "Assignment retrieval failed."
     if req_json['key'] != SECRET_KEY:
-        return "Assignment sending failed; key incorrect."
+        return "Assignment retrieval failed; key incorrect."
     asgn_ls = []
     for asgn in Assignment.query.all():
         asgn_ls.append(
@@ -192,6 +192,86 @@ def getassignments():
             )
         )
     return "\n".join(asgn_ls)
+
+
+@app.route('/editassignment', methods=['POST'])
+def editassignment():
+    """
+    Utility view for editing an assignment.
+    """
+    req_json = request.get_json(silent=True)
+    if not req_json:
+        return "Assignment editing failed."
+    if req_json['key'] != SECRET_KEY:
+        return "Assignment editing failed; key incorrect."
+    asgn = Assignment.query.filter(Assignment.id == req_json['asgn_id']).first()
+    if not asgn:
+        return "Assignment editing fail; does not exist."
+    asgn.title = req_json['title']
+    asgn.desc = req_json['desc']
+    asgn.visible = req_json['visible']
+    asgn.date_due = datetime.date.fromordinal(req_json['date_due'])
+    db.session.commit()
+    return "Assignment edited successfully."
+
+
+@app.route('/addtest', methods=['POST'])
+def addtest():
+    """
+    Utility view for adding assignments.
+    """
+    req_json = request.get_json(silent=True)
+    if not req_json:
+        return "Test addition failed."
+    if req_json['key'] != SECRET_KEY:
+        return "Test addition failed; key incorrect."
+    test = AssignmentTest(
+        asgn_id=req_json['asgn_id'],
+        test_inp=req_json['test_inp'],
+        test_out=req_json['test_out'],
+    )
+    db.session.add(test)
+    db.session.commit()
+    return "Added assignment " + str(test) + " successfully."
+
+
+@app.route('/deltest/<int:test_id>', methods=['POST'])
+def deltest(test_id):
+    """
+    Utility view for deleting assignment tests.
+    """
+    req_json = request.get_json(silent=True)
+    if not req_json:
+        return "Assignment deletion failed."
+    if req_json['key'] != SECRET_KEY:
+        return "Assignment deletion failed; key incorrect."
+    test = AssignmentTest.query.filter(AssignmentTest.id == test_id).first()
+    db.session.delete(test)
+    db.session.commit()
+    return "Assignment " + str(test) + " deleted successfully."
+
+
+@app.route('/getalltests', methods=['POST'])
+def getalltests():
+    """
+    Utility view for retrieving list of all assignment tests.
+    """
+    req_json = request.get_json(silent=True)
+    if not req_json:
+        return "Test retrieval failed."
+    if req_json['key'] != SECRET_KEY:
+        return "Test retrieval failed; key incorrect."
+    test_ls = []
+    for test in AssignmentTest.query.all():
+        test_ls.append(
+            "<id=%s asgn_id=%s test_inp=\"%s\" test_out=\"%s\"" % (
+                str(test.id),
+                str(test.asgn_id),
+                test.test_inp,
+                test.test_out
+            )
+        )
+    return "\n".join(test_ls)
 
 
 @app.errorhandler(404)
