@@ -13,9 +13,33 @@
         </div>
     </div>
     <hr>
+    <ul class="nav nav-tabs">
+        <li role="presentation" class="active" id="solved_asgns_ref"><a><h4>Solved Assignments</h4></a></li>
+        <li role="presentation" id="unsolved_asgns_ref"><a><h4>Unsolved Assignments</h4></a></li>
+    </ul>
+    <script>
+        // Manage nav links
+        var solved_asgns_ref = $('#solved_asgns_ref');
+        var unsolved_asgns_ref = $('#unsolved_asgns_ref');
+        solved_asgns_ref.click(function() {
+            if(!solved_asgns_ref.hasClass('active')) {
+                solved_asgns_ref.addClass('active');
+                unsolved_asgns_ref.removeClass('active');
+            }
+            $('#unsolved_asgns_ls').hide();
+            $('#solved_asgns_ls').show();
+        });
+        unsolved_asgns_ref.click(function() {
+            if(!unsolved_asgns_ref.hasClass('active')) {
+                unsolved_asgns_ref.addClass('active');
+                solved_asgns_ref.removeClass('active');
+            }
+            $('#solved_asgns_ls').hide();
+            $('#unsolved_asgns_ls').show();
+        });
+    </script>
     <!-- Solved assignments -->
-    <h3>Solved Assignments</h3>
-    <div class="list-group">
+    <div class="list-group" id="solved_asgns_ls">
         {% for solved_asgn in solved_asgns %}
             <a href="{{ url_for('editor', asgn_id=solved_asgn.id) }}" class="list-group-item list-group-item-action">
                 <h2 class="list-group-item-heading">{{ solved_asgn.title }}</h2>
@@ -24,8 +48,7 @@
         {% endfor %}
     </div>
     <!-- Unsolved visible assignments -->
-    <h3>Unsolved Assignments</h3>
-    <div class="list-group">
+    <div class="list-group" id="unsolved_asgns_ls" style="display: none">
         {% for unsolved_asgn in unsolved_visible_asgns %}
             <a href="{{ url_for('editor', asgn_id=unsolved_asgn.id) }}" class="list-group-item list-group-item-action">
                 <h2 class="list-group-item-heading">{{ unsolved_asgn.title }}</h2>
