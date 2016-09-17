@@ -173,7 +173,7 @@ def delassignment():
 @app.route('/getassignments', methods=['POST'])
 def getassignments():
     """
-    Utility view for deleting assignments.
+    Utility view for retrieving list of all assignments.
     """
     req_json = request.get_json(silent=True)
     if not req_json:
