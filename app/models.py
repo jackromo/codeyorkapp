@@ -1,6 +1,7 @@
 from app import db
 from hashlib import md5
 import os
+import datetime
 
 
 class User(db.Model):
@@ -64,9 +65,15 @@ class User(db.Model):
     def get_solved_assignments(self):
         return [asgn_sol.assignment for asgn_sol in self.asgn_solutions]
 
+    def get_num_solved(self):
+        return len(self.get_solved_assignments())
+
     def get_unsolved_visible_assignments(self):
         solved_asgns = self.get_solved_assignments()
         return [asgn for asgn in Assignment.query.filter(Assignment.visible == True) if asgn not in solved_asgns]
+
+    def get_num_unsolved_visible(self):
+        return len(self.get_unsolved_visible_assignments())
 
     def avatar(self, size):
         return 'http://gravatar.com/avatar/%s?d=mm&s=%d' % (md5(self.email.encode('utf-8')).hexdigest(), size)
@@ -103,6 +110,12 @@ class Assignment(db.Model):
 
     def __repr__(self):
         return '<Assignment \"%s\">' % self.title
+
+    def due_date_passed(self):
+        datetime_due = datetime.datetime.fromordinal(self.date_due.toordinal())
+        print datetime_due
+        print datetime.datetime.utcnow()
+        return (datetime.datetime.utcnow() - datetime_due).total_seconds() > 0
 
 
 class UserAssignments(db.Model):
