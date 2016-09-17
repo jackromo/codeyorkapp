@@ -6,5 +6,4 @@ db_repository/*
 log/*
 results/*
 !results/.keep
-app/static/js/src-min/*
 # make ace available at deployment
