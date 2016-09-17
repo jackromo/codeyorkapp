@@ -56,7 +56,6 @@ def signup():
             password=signup_form.password.data
         )
         db.session.add(user)
-        print user.username, user.email, user.password
         db.session.commit()
         login_user(user, remember=signup_form.remember_me.data)
         return redirect(request.args.get('next') or url_for('index'))
