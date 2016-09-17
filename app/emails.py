@@ -119,7 +119,7 @@ def send_scheduled_emails():
     """
     for assignment in Assignment.query.all():
         datetime_due = datetime.datetime.fromordinal(assignment.date_due.toordinal())
-        tdelta = datetime.datetime.utcnow() - datetime_due
+        tdelta = datetime_due - datetime.datetime.utcnow()
         if 0 < tdelta.total_seconds() - (24 * 3600) <= 600:     # <= 10 minutes until 24 hours to asgn's due date
             send_email_user_asgn_soon(assignment)
         elif -600 < tdelta.total_seconds() <= 0:    # assignment due date passed < 10 mins ago
