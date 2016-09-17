@@ -4,6 +4,8 @@ from app import app, login_manager, db
 from forms import LoginForm, SignupForm
 from models import User, UserAssignments, Assignment
 from testcode import get_test_str, check_test_results
+from config import SECRET_KEY
+import datetime
 
 
 @app.before_request
@@ -129,6 +131,67 @@ def testdone(asgn_id, user_id):
         user.solve_assignment(assignment, result_path)
         db.session.commit()
     return jsonify({'solved': has_solved})
+
+
+@app.route('/addassignment', methods=['POST'])
+def addassignment():
+    """
+    Utility view for adding assignments.
+    """
+    req_json = request.get_json(silent=True)
+    if not req_json:
+        return "Assignment sending failed."
+    if req_json['key'] != SECRET_KEY:
+        return "Assignment sending failed; key incorrect."
+    assignment = Assignment(
+        title=req_json['title'],
+        desc=req_json['desc'],
+        visible=bool(req_json['visible']),
+        date_due=datetime.date.fromordinal(req_json['date_due'])
+    )
+    db.session.add(assignment)
+    db.session.commit()
+    return "Added assignment " + str(assignment) + " successfully."
+
+
+@app.route('/delassignment', methods=['POST'])
+def delassignment():
+    """
+    Utility view for deleting assignments.
+    """
+    req_json = request.get_json(silent=True)
+    if not req_json:
+        return "Assignment sending failed."
+    if req_json['key'] != SECRET_KEY:
+        return "Assignment sending failed; key incorrect."
+    asgn = Assignment.query.filter(Assignment.id == req_json['asgn_id']).first()
+    db.session.delete(asgn)
+    db.session.commit()
+    return "Assignment " + str(asgn) + " deleted successfully."
+
+
+@app.route('/getassignments', methods=['POST'])
+def getassignments():
+    """
+    Utility view for deleting assignments.
+    """
+    req_json = request.get_json(silent=True)
+    if not req_json:
+        return "Assignment sending failed."
+    if req_json['key'] != SECRET_KEY:
+        return "Assignment sending failed; key incorrect."
+    asgn_ls = []
+    for asgn in Assignment.query.all():
+        asgn_ls.append(
+            "<id=%s title=\"%s\" desc=\"%s\" visible=%s datedue=%s>" % (
+                str(asgn.id),
+                asgn.title,
+                asgn.desc,
+                str(asgn.visible),
+                str(asgn.date_due)
+            )
+        )
+    return "\n".join(asgn_ls)
 
 
 @app.errorhandler(404)
