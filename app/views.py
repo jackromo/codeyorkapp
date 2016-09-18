@@ -234,8 +234,8 @@ def addtest():
     return "Added assignment " + str(test) + " successfully."
 
 
-@app.route('/deltest/<int:test_id>', methods=['POST'])
-def deltest(test_id):
+@app.route('/deltest', methods=['POST'])
+def deltest():
     """
     Utility view for deleting assignment tests.
     """
@@ -244,7 +244,7 @@ def deltest(test_id):
         return "Assignment deletion failed."
     if req_json['key'] != SECRET_KEY:
         return "Assignment deletion failed; key incorrect."
-    test = AssignmentTest.query.filter(AssignmentTest.id == test_id).first()
+    test = AssignmentTest.query.filter(AssignmentTest.id == req_json['test_id']).first()
     db.session.delete(test)
     db.session.commit()
     return "Assignment " + str(test) + " deleted successfully."
