@@ -19,3 +19,16 @@
 #submit_result_container {
     padding: 15px;
 }
+
+.glyphicon-ok-sign,
+.glyphicon-exclamation-sign {
+    left: 35px;
+}
+
+.glyphicon-ok-sign {
+    color: limegreen;
+}
+
+.glyphicon-exclamation-sign {
+    color: red;
+}

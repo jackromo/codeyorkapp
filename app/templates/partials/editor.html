@@ -12,8 +12,25 @@
 {% endblock %}
 
 {% block contents %}
-    <h1>Assignment: <strong>{{ assignment.title }}</strong></h1>
-    <p>{{ assignment.desc }}</p>
+    <h1>
+        Assignment: <strong>{{ assignment.title }}</strong>
+        {% if g.user.has_solved(assignment) %}
+            <span class="glyphicon glyphicon-ok-sign"></span>
+        {% else %}
+            {% if assignment.due_date_passed() %}
+                <span class="glyphicon glyphicon-exclamation-sign"></span>
+            {% endif %}
+        {% endif %}
+    </h1>
+    {% if g.user.has_solved(assignment) %}
+        <p>(You've already solved this one, but feel free to solve it again.)</p>
+    {% else %}
+        {% if assignment.due_date_passed() %}
+            <p>(This assignment's due date passed before you solved it, but you should still complete it. Better late than never.)</p>
+        {% endif %}
+    {% endif %}
+    <hr>
+    <p>{{ assignment.desc }}</p><br>
     <div class="row">
         <div class="col-md-9">
             <pre id="code_editor">{% if g.user.has_solved(assignment) %}{{ user_soln }}{% else %}print "All of your code should go here!"{% endif %}</pre>
