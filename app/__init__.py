@@ -5,6 +5,7 @@ from config import basedir, ADMINS, MAIL_SERVER, MAIL_PORT, MAIL_USERNAME, MAIL_
 import logging
 from logging.handlers import SMTPHandler, RotatingFileHandler
 from flask_mail import Mail
+from emails import start_scheduled_emails
 
 
 app = Flask(__name__)
@@ -40,6 +41,8 @@ if not app.debug:
     file_handler.setLevel(logging.INFO)
     app.logger.addHandler(file_handler)
     app.logger.info('CodeYork app startup')
+
+start_scheduled_emails()
 
 
 from app import views, models

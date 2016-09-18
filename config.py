@@ -16,9 +16,10 @@ SQLALCHEMY_TRACK_MODIFICATIONS = True  # set to True for debugging
 
 # Mail Server Config
 
-MAIL_SERVER = 'parseltongue.net'
-MAIL_PORT = 25
-MAIL_USERNAME = None
-MAIL_PASSWORD = None
+MAIL_SERVER = 'smtp.gmail.com'
+MAIL_PORT = 465
+MAIL_USE_SSL = True
+MAIL_USERNAME = 'no-reply@parseltongue.net'
+MAIL_PASSWORD = '2134Jro8'
 
 ADMINS = ['sharrackor@gmail.com']

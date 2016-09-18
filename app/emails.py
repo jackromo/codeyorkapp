@@ -3,7 +3,7 @@ from flask_mail import Message
 from app import mail, db, app
 from app.models import User, Assignment, UserAssignments
 from threading import Thread
-from config import MAIL_SERVER, ADMINS
+from config import MAIL_SERVER, ADMINS, MAIL_USERNAME
 import datetime
 from threading import Timer
 
@@ -16,7 +16,7 @@ def send_async_email(app, msg):
         mail.send(msg)
 
 
-def send_email(subject, recipients, text_body, html_body, sender='no_reply@' + MAIL_SERVER):
+def send_email(subject, recipients, text_body, html_body, sender=MAIL_USERNAME):
     """
     Sends an email to a recipient from the configured mail server.
     """
