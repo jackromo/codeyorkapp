@@ -113,8 +113,6 @@ class Assignment(db.Model):
 
     def due_date_passed(self):
         datetime_due = datetime.datetime.fromordinal(self.date_due.toordinal())
-        print datetime_due
-        print datetime.datetime.utcnow()
         return (datetime.datetime.utcnow() - datetime_due).total_seconds() > 0
 
 
