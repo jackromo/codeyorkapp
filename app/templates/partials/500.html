@@ -1,7 +1,13 @@
 {% extends "base.html" %}
 
 {% block contents %}
-    <h1>Oops.</h1> <br>
-    <p>An unexpected server-side error has occurred.</p>
-    <p>A platoon of highly trained chimpanzees has been deployed to fix this issue. Sorry about that!</p>
+    <h1>Oops.</h1>
+    <hr>
+    <p class="lead">An unexpected server-side error has occurred.</p>
+    <p class="lead">A platoon of highly trained chimpanzees has been deployed to fix this issue. Sorry about that!</p>
+    <p>
+        <a class="btn btn-primary btn-lg" href="{{ url_for('index') }}" role="button">
+            <span class="glyphicon glyphicon-menu-left"></span> Previous Page
+        </a>
+    </p>
 {% endblock %}

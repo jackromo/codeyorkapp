@@ -1,6 +1,12 @@
 {% extends "base.html" %}
 
 {% block contents %}
-    <h1>Error 404: Page not Found.</h1>
-    <p><a href="{{ url_for('index') }}">Back</a></p>
+    <h1>Mr. 404's in town.</h1>
+    <hr>
+    <p class="lead">Guess that means the page you asked for doesn't exist. Sorry about that!</p>
+    <p>
+        <a class="btn btn-primary btn-lg" href="{{ url_for('index') }}" role="button">
+            <span class="glyphicon glyphicon-menu-left"></span> Previous Page
+        </a>
+    </p>
 {% endblock %}
