@@ -19,8 +19,8 @@ secret_key = 'i-totally-thought-of-a-good-key-m8-lmao-get-rekked-hax0rs'
 
 added_asgn_json = {
     'key': secret_key,
-    'title': '',
-    'desc': '',
+    'title': 'New assignment',
+    'desc': 'This is a new assignment.',
     'visible': True,
     'date_due': datetime.date.toordinal(datetime.date.today())
 }
@@ -36,6 +36,7 @@ get_all_asgn_json = {
 
 edit_asgn_json = {
     'key': secret_key,
+    'asgn_id': 1,
     'title': 'New Title',
     'desc': 'This is the new description.',
     'visible': True,
@@ -46,7 +47,8 @@ edit_asgn_json = {
 def make_request(path, data):
     req = urllib2.Request(site_url + path)
     req.add_header('Content-Type', 'application/json')
-    print urllib2.urlopen(req, json.dumps(data))
+    response = urllib2.urlopen(req, json.dumps(data))
+    print response.read()
 
 
 def handle_bad_args():
