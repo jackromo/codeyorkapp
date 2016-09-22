@@ -46,7 +46,7 @@ def send_email_admin_asgndue(assignment):
     )
 
 
-def send_email_admin_late_soln(user_soln):
+def send_email_admin_late_soln(user, assignment):
     """
     Send email to admin for when user has completed an assignment late.
 
@@ -54,7 +54,8 @@ def send_email_admin_late_soln(user_soln):
     it was due and when they completed it.
 
     Args:
-        user_soln (UserAssignments): Solution user has posed.
+        user (User): User who has solved assignment late.
+        assignment (Assignment): Assignment user has solved late.
     """
     send_email(
         "User solved assignment late",

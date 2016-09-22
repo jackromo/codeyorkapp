@@ -4,6 +4,7 @@ from app import app, login_manager, db
 from forms import LoginForm, SignupForm
 from models import User, UserAssignments, Assignment, AssignmentTest
 from testcode import get_test_str, check_test_results
+from emails import send_email_users_new_asgn
 from config import SECRET_KEY
 import datetime
 
@@ -129,6 +130,8 @@ def testdone(asgn_id, user_id):
             f.write(code_str)
         user.solve_assignment(assignment, result_path)
         db.session.commit()
+        if assignment.due_date_passed():
+            send_email_admin_late_soln(user, assignment)
     return jsonify({'solved': has_solved})
 
 
@@ -150,6 +153,8 @@ def addassignment():
     )
     db.session.add(assignment)
     db.session.commit()
+    if assignment.visible:
+        send_email_users_new_asgn(assignment)
     return "Added assignment " + str(assignment) + " successfully."
 
 
@@ -211,6 +216,8 @@ def editassignment():
     asgn.visible = req_json['visible']
     asgn.date_due = datetime.date.fromordinal(req_json['date_due'])
     db.session.commit()
+    if assignment.visible:
+        send_email_users_new_asgn(assignment)
     return "Assignment edited successfully."
 
 
