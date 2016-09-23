@@ -38,11 +38,17 @@ def send_email_admin_asgndue(assignment):
     Args:
         assignment (Assignment): Assignment now due.
     """
+    users_solved = assignment.users_solved
+    users_failed = filter(lambda x: x not in users_solved, User.query.all())
     send_email(
         "Assignment due date passed",
         [ADMINS[0]],
-        render_template('emails/txt/admin_asgndue_email.txt'),
-        render_template('emails/html/admin_asgndue_email.html')
+        render_template('emails/txt/admin_asgndue_email.txt', assignment=assignment,
+                                                              users_solved=users_solved,
+                                                              users_failed=users_failed),
+        render_template('emails/html/admin_asgndue_email.html', assignment=assignment,
+                                                                users_solved=users_solved,
+                                                                users_failed=users_failed)
     )
 
 
@@ -60,8 +66,8 @@ def send_email_admin_late_soln(user, assignment):
     send_email(
         "User solved assignment late",
         [ADMINS[0]],
-        render_template('emails/txt/admin_late_soln_email.txt'),
-        render_template('emails/html/admin_late_soln_email.html')
+        render_template('emails/txt/admin_late_soln_email.txt', assignment=assignment, user=user),
+        render_template('emails/html/admin_late_soln_email.html', assignment=assignment, user=user)
     )
 
 
@@ -76,8 +82,8 @@ def send_email_user_asgn_soon(assignment):
     send_email(
         "Assignment due in 24 hours",
         users,
-        render_template('emails/txt/user_asgn_soon_email.txt'),
-        render_template('emails/html/user_asgn_soon_email.html')
+        render_template('emails/txt/user_asgn_soon_email.txt', assignment=assignment),
+        render_template('emails/html/user_asgn_soon_email.html', assignment=assignment)
     )
 
 
@@ -92,8 +98,8 @@ def send_email_user_asgn_due(assignment):
     send_email(
         "Assignment not completed",
         users,
-        render_template('emails/txt/user_asgn_due_email.txt'),
-        render_template('emails/html/user_asgn_due_email.html')
+        render_template('emails/txt/user_asgn_due_email.txt', assignment=assignment),
+        render_template('emails/html/user_asgn_due_email.html', assignment=assignment)
     )
 
 
@@ -107,8 +113,8 @@ def send_email_users_new_asgn(assignment):
     send_email(
         "New assignment available!",
         User.query.all(),
-        render_template('emails/txt/user_new_asgn_email.txt'),
-        render_template('emails/html/user_new_asgn_email.html')
+        render_template('emails/txt/user_new_asgn_email.txt', assignment=assignment),
+        render_template('emails/html/user_new_asgn_email.html', assignment=assignment)
     )
 
 

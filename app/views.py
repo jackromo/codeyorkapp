@@ -128,10 +128,10 @@ def testdone(asgn_id, user_id):
         result_path = './results/' + str(user_id) + '_' + str(asgn_id) + '.py'
         with open(result_path, 'w+') as f:
             f.write(code_str)
+        if assignment.due_date_passed() and not user.has_solved(assignment):
+            send_email_admin_late_soln(user, assignment)
         user.solve_assignment(assignment, result_path)
         db.session.commit()
-        if assignment.due_date_passed():
-            send_email_admin_late_soln(user, assignment)
     return jsonify({'solved': has_solved})
 
 
