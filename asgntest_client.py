@@ -25,7 +25,7 @@ added_test_json = {
 
 del_test_json = {
     'key': secret_key,
-    'test_id': 1
+    'test_id': 2
 }
 
 get_all_test_json = {
@@ -36,7 +36,8 @@ get_all_test_json = {
 def make_request(path, data):
     req = urllib2.Request(site_url + path)
     req.add_header('Content-Type', 'application/json')
-    print urllib2.urlopen(req, json.dumps(data))
+    response = urllib2.urlopen(req, json.dumps(data))
+    print response.read()
 
 
 def handle_bad_args():

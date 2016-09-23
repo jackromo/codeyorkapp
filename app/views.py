@@ -170,8 +170,9 @@ def delassignment():
         return "Assignment deletion failed; key incorrect."
     asgn = Assignment.query.filter(Assignment.id == req_json['asgn_id']).first()
     db.session.delete(asgn)
+    return_str = "Assignment " + str(asgn) + " deleted successfully."
     db.session.commit()
-    return "Assignment " + str(asgn) + " deleted successfully."
+    return return_str
 
 
 @app.route('/getassignments', methods=['POST'])
@@ -224,7 +225,7 @@ def editassignment():
 @app.route('/addtest', methods=['POST'])
 def addtest():
     """
-    Utility view for adding assignments.
+    Utility view for adding assignment tests.
     """
     req_json = request.get_json(silent=True)
     if not req_json:
@@ -238,7 +239,7 @@ def addtest():
     )
     db.session.add(test)
     db.session.commit()
-    return "Added assignment " + str(test) + " successfully."
+    return "Added assignment test " + str(test) + " successfully."
 
 
 @app.route('/deltest', methods=['POST'])
@@ -252,9 +253,10 @@ def deltest():
     if req_json['key'] != SECRET_KEY:
         return "Assignment deletion failed; key incorrect."
     test = AssignmentTest.query.filter(AssignmentTest.id == req_json['test_id']).first()
+    return_str = "Assignment test" + str(test) + " deleted successfully."
     db.session.delete(test)
     db.session.commit()
-    return "Assignment " + str(test) + " deleted successfully."
+    return return_str
 
 
 @app.route('/getalltests', methods=['POST'])
