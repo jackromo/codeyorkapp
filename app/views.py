@@ -272,7 +272,7 @@ def getalltests():
     test_ls = []
     for test in AssignmentTest.query.all():
         test_ls.append(
-            "<id=%s asgn_id=%s test_inp=\"%s\" test_out=\"%s\"" % (
+            "<id=%s asgn_id=%s test_inp=\"%s\" test_out=\"%s\">" % (
                 str(test.id),
                 str(test.asgn_id),
                 test.test_inp,
