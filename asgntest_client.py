@@ -18,9 +18,9 @@ secret_key = 'i-totally-thought-of-a-good-key-m8-lmao-get-rekked-hax0rs'
 
 added_test_json = {
     'key': secret_key,
-    'asgn_id': 1,
-    'test_inp': 'input',
-    'test_out': 'out'
+    'asgn_id': 2,
+    'test_inp': '',
+    'test_out': 'out_different'
 }
 
 del_test_json = {
